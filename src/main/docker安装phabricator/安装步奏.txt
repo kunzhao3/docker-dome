@@ -1,5 +1,5 @@
 -- 注意事项
-安装phabricator时需要安装MySQL，还要指定MySQL的版本，不能用最新的MySQL，否则会密码加密方式问题，不能运行phabricator
+安装phabricator时需要安装MySQL，还要指定MySQL的版本，不能用最新的MySQL，否则会出现密码加密方式问题，不能运行phabricator
 部署完MySQL需要获取MySQL的IPAddress，因为phabricator在部署时需要设置如下参数：
 获取 MySQL的IPAddress
 执行
