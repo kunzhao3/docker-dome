@@ -5,9 +5,9 @@
 执行
 docker inspect mysql |grep IPAddress
 得到
-172.17.0.3
+172.17.0.2
 下面会有参数设置
--e MYSQL_HOST=172.17.0.3
+-e MYSQL_HOST=172.17.0.2
 
 还要配置MySQL的用户名和密码参数如下：
 -e MYSQL_USER=root
@@ -32,6 +32,15 @@ docker inspect <container id> |grep IPAddress
 -- 下载phabricator镜像
 docker pull redpointgames/phabricator
 -- 部署phabricator
-docker run --name phabricator -p 443:443 -p 332:22 -p 8891:80 -v /root/phabricator/backup:/repos -e PHABRICATOR_HOST=192.168.179.131:8891 -e MYSQL_HOST=172.17.0.3 -e MYSQL_USER=root -e MYSQL_PASS=123456 -e PHABRICATOR_REPOSITORY_PATH=/repos -e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin -d phabricator
+docker run \
+    --rm -p 443:443 -p 332:22 -p 8891:80 \
+    --env PHABRICATOR_HOST=192.168.179.131:8891 \
+    --env MYSQL_HOST=172.17.0.2 \
+    --env MYSQL_USER=root \
+    --env MYSQL_PASS=123456 \
+    --env PHABRICATOR_REPOSITORY_PATH=/repos \
+    -v /root/phabricator/backup:/repos \
+    --name phabricator \
+    -d redpointgames/phabricator
 -- 查看进程
 docker ps -a
