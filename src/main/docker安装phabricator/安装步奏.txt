@@ -27,6 +27,7 @@ docker pull mysql:5.7
 -- 先部署MySQL 5.7版本
 docker run -p 3306:3306 --name mysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
 -- 获取 MySQL的IPAddress
+-- <container id> 可以通过 docker ps -s 查看
 docker inspect <container id> |grep IPAddress
 -- 下载phabricator镜像
 docker pull redpointgames/phabricator
