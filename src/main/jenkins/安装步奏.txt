@@ -1,0 +1,10 @@
+创建文件夹
+mkdir /opt/docker_jenkins
+把docker-compose.yml文件放到/opt/docker_jenkins下
+授权读写可执行data文件夹
+cd /opt/docker_jenkins
+chmod 777 data
+执行
+docker-compose up -d
+查看日志
+docker-compose logs -f jenkins

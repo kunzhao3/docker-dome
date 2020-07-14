@@ -3,7 +3,7 @@ services:
   gitlab:
     image: 'twang2218/gitlab-ce-zh:11.1.4'
     container_name: "gitlab"
-    restart: always
+    restart: no   # always 随着docker重启一起重启,no 默认不重启,需要手动启动
     privileged: true
     hostname: 'gitlab'
     environment:
