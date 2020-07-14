@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  jenkins:
+    container_name: jenkins
+    image: 'jenkins/jenkins'
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '8888:8080'
+      - '50000:50000'
+    volumes:
+      - ./data:/var/jenkins_home

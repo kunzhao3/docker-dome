@@ -1,0 +1,36 @@
+-- 注意事项
+安装phabricator时需要安装MySQL，还要指定MySQL的版本，不能用最新的MySQL，否则会密码加密方式问题，不能运行phabricator
+部署完MySQL需要获取MySQL的IPAddress，因为phabricator在部署时需要设置如下参数：
+获取 MySQL的IPAddress
+执行
+docker inspect mysql |grep IPAddress
+得到
+172.17.0.3
+下面会有参数设置
+-e MYSQL_HOST=172.17.0.3
+
+还要配置MySQL的用户名和密码参数如下：
+-e MYSQL_USER=root
+-e MYSQL_PASS=123456
+
+先获取本机的IP，最好设定为固定的IP
+执行
+ifconfing
+得到
+192.168.179.131
+下面会有参数设置
+-e PHABRICATOR_HOST=192.168.179.131:8891
+
+-- 部署步奏
+-- 下载 MySQL 5.7镜像
+docker pull mysql:5.7
+-- 先部署MySQL 5.7版本
+docker run -p 3306:3306 --name mysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+-- 获取 MySQL的IPAddress
+docker inspect <container id> |grep IPAddress
+-- 下载phabricator镜像
+docker pull redpointgames/phabricator
+-- 部署phabricator
+docker run --name phabricator -p 443:443 -p 332:22 -p 8891:80 -v /root/phabricator/backup:/repos -e PHABRICATOR_HOST=192.168.179.131:8891 -e MYSQL_HOST=172.17.0.3 -e MYSQL_USER=root -e MYSQL_PASS=123456 -e PHABRICATOR_REPOSITORY_PATH=/repos -e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin -d phabricator
+-- 查看进程
+docker ps -a
