@@ -1,0 +1,14 @@
+-- 下载镜像
+docker pull rancher/rancher
+-- 查看镜像
+docker image ls
+-- 查看rancher镜像详细信息
+docker inspect rancher/rancher:latest
+-- 执行如下命令，在宿主机创建两个挂载目录
+mkdir -p /docker_volume/rancher_home/rancher
+mkdir -p /docker_volume/rancher_home/auditlog
+-- 接下来我们启动rancher容器
+docker run -d --restart=unless-stopped -p 80:80 -p 443:443 \
+-v /docker_volume/rancher_home/rancher:/var/lib/rancher \
+-v /docker_volume/rancher_home/auditlog:/var/log/auditlog \
+--name rancher rancher/rancher
