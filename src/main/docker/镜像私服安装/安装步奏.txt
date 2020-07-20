@@ -15,14 +15,14 @@ http://192.168.179.131:5000/v2/
 {}
 即成功
 
-3. 验证，上传一个springboot项目
+3. 上传一个springboot项目
 3.1 创建一个dockerfile文件夹用于存入自己的镜像架包
 mkdir -p dockerfile
 
 3.2 在dockerfile下也创建一个springboot文件夹
 mkdir -p springboot
 
-3.3 把你的架包(我的架包是springbootdome-0.0.1-SNAPSHOT.jar)上传到springboot文件夹中
+3.3 把你的架包(我的架包是springbootdome.jar)上传到springboot文件夹中
 rz
 
 3.4 在springboot文件夹下创建一个Dockerfile
@@ -34,7 +34,7 @@ VOLUME /tmp
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-ADD springbootdome-0.0.1-SNAPSHOT.jar app.jar
+ADD springbootdome.jar app.jar
 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 
@@ -42,7 +42,7 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 FROM 镜像地址，我这里获取的是网易镜像库的jdk8-alpine java版本，可自行去选择对应的版本
 VOLUME 数据库挂载出来，用于容器接收数据指定宿主机接收地址，默认就是/tmp
 RUN 运行对应的脚本，我这里是同步了宿主机和docker容器的时间
-ADD 可以理解为将dockerfile所在当前文件夹中springbootdome-0.0.1-SNAPSHOT.jar 重命名
+ADD 可以理解为将Dockerfile所在当前文件夹中springbootdome.jar 重命名
 ENTRYPOINT 运行对应的jar包，-Djava.security.egd=file:/dev/./urandom大致意思是加快tomcat运行速度，可自行百度。
 
 3.5 构建镜像
