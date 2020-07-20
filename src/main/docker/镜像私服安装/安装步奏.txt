@@ -1,0 +1,85 @@
+1. 关于Registry
+官方的Docker hub是一个用于管理公共镜像的好地方，我们可以在上面找到我们想要的镜像，也可以把我们自己的镜像推送上去。
+但是，有时候，我们的使用场景需要我们拥有一个私有的镜像仓库用于管理我们自己的镜像。这个可以通过开源软件Registry来达成目的。
+
+2. Registry的部署
+运行下面命令获取registry镜像
+docker pull registry
+
+然后启动一个容器，这里的 /opt/registry 是我们本地的目录，用于存储上传的镜象，/var/lib/registry是Registry服务默认的保存镜象目录
+docker run -d -v /opt/registry:/var/lib/registry -p 5000:5000 --restart=always --name registry registry
+
+查看镜像私服是否安装成功,其中192.168.179.131是本机的IP地址
+http://192.168.179.131:5000/v2/
+页面会响应
+{}
+即成功
+
+3. 验证，上传一个springboot项目
+3.1 创建一个dockerfile文件夹用于存入自己的镜像架包
+mkdir -p dockerfile
+
+3.2 在dockerfile下也创建一个springboot文件夹
+mkdir -p springboot
+
+3.3 把你的架包(我的架包是springbootdome-0.0.1-SNAPSHOT.jar)上传到springboot文件夹中
+rz
+
+3.4 在springboot文件夹下创建一个Dockerfile
+vi Dockerfile
+内容如下：
+FROM hub.c.163.com/library/java:8-alpine
+
+VOLUME /tmp
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+ADD springbootdome-0.0.1-SNAPSHOT.jar app.jar
+
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+
+3.4.1 参数说明：
+FROM 镜像地址，我这里获取的是网易镜像库的jdk8-alpine java版本，可自行去选择对应的版本
+VOLUME 数据库挂载出来，用于容器接收数据指定宿主机接收地址，默认就是/tmp
+RUN 运行对应的脚本，我这里是同步了宿主机和docker容器的时间
+ADD 可以理解为将dockerfile所在当前文件夹中springbootdome-0.0.1-SNAPSHOT.jar 重命名
+ENTRYPOINT 运行对应的jar包，-Djava.security.egd=file:/dev/./urandom大致意思是加快tomcat运行速度，可自行百度。
+
+3.5 构建镜像
+跳转到dockerfile文件夹
+cd dockerfile
+构建镜像
+docker build -t springbootdome:0.1 springboot
+
+3.5.1参数说明
+springbootdome:0.1 代表精心名称为springbootdome,版本号为0.1
+springboot  是要dockerfile下的springboot文件夹
+
+3.6上传镜像到私服
+3.6.1现在我们通过将镜像push到registry来验证一下
+现在机器上有个springbootdome版本号为0.1的镜像，我们要通过docker tag将该镜像标志为要推送到私有仓库，
+docker tag springbootdome:0.1 192.168.179.131:5000/springbootdome:0.1
+然后查看以下本地的镜像，
+docker images
+显示如下：
+REPOSITORY                       TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+registry                        2.1.1               b91f745cd233        5 days ago          220.1 MB
+ubuntu                          14.04               a5a467fddcb8        6 days ago          187.9 MB
+springbootdome                  0.1                 975b84d108f1        2 weeks ago         960 B
+192.168.179.131:5000/springbootdome   0.1                 975b84d108f1        2 weeks ago         960 B
+
+3.6.2 我们运行docker push将hspringbootdome镜像push到我们的私有仓库中，
+docker push 192.168.179.131:5000/springbootdome:0.1
+显示如下：
+The push refers to a repository [192.168.179.131:5000/springbootdome:0.1] (len: 1)
+975b84d108f1: Image successfully pushed
+3f12c794407e: Image successfully pushed
+latest: digest: sha256:1c7adb1ac65df0bebb40cd4a84533f787148b102684b74cb27a1982967008e4b size: 2744
+
+3.6.3
+现在我们可以查看我们本地/opt/registry目录下已经有了刚推送上来的springbootdome
+我们也在浏览器中输入http://192.168.179.131:5000/v2/_catalog，正常返回如下数据
+{"repositories":["springbootdome"]}
+现在我们可以先将我们本地的192.168.179.131:5000/springbootdome和springbootdome先删除掉
+docker rmi springbootdome
+docker rmi 192.168.179.131:5000/springbootdome

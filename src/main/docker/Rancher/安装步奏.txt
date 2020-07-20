@@ -1,7 +1,7 @@
 -- 下载镜像
 docker pull rancher/rancher
 -- 查看镜像
-docker image ls
+docker images
 -- 查看rancher镜像详细信息
 docker inspect rancher/rancher:latest
 -- 执行如下命令，在宿主机创建两个挂载目录
