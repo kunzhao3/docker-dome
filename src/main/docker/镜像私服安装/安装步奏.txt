@@ -26,6 +26,7 @@ mkdir -p springboot
 rz
 
 3.4 在springboot文件夹下创建一个Dockerfile
+cd springboot
 vi Dockerfile
 内容如下：
 FROM hub.c.163.com/library/java:8-alpine
