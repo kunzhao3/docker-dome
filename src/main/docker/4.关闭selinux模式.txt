@@ -1,0 +1,9 @@
+临时关闭
+setenforce 0
+
+永久关闭
+vi /etc/sysconfig/selinux
+将
+SELINUX=enforcing 
+改为
+SELINUX=disabled

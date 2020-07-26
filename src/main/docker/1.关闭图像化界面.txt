@@ -1,0 +1,11 @@
+检查当前默认设置：
+# systemctl get-default
+graphical.targe
+graphical.target表示开机将默认进入图形界面
+
+切换方法：
+1. 设置为命令模式  
+ systemctl set-default multi-user.target
+2. 设置为图形模式   
+ systemctl set-default graphical.target
+执行后上述命令后，reboot重启即可
