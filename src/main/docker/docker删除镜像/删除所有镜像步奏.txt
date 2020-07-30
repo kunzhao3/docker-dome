@@ -1,0 +1,4 @@
+停止所有镜像容器
+docker stop $(docker ps -a -q)
+更新随docker启动而启动的镜像容器为no
+#docker update --restart=no $(docker pa -a -q)
