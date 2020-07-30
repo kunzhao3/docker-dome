@@ -13,5 +13,5 @@ yum -y install docker
 systemctl start docker
 2.4 查看docker服务状态
 systemctl status docker
-2.5设置开机启动
+2.5设置随机启动，这个步骤最好也设置下，需注意卸载docker的时候需要重新设置为disable
 systemctl enable docker.service
