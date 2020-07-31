@@ -17,10 +17,10 @@ http://192.168.179.131:5000/v2/
 
 3. 上传一个springboot项目
 3.1 创建一个dockerfile文件夹用于存入自己的镜像架包
-mkdir -p dockerfile
+mkdir  dockerfile
 
 3.2 在dockerfile下也创建一个springboot文件夹
-mkdir -p springboot
+mkdir  springboot
 
 3.3 把你的架包(我的架包是springbootdome.jar)上传到springboot文件夹中
 rz
