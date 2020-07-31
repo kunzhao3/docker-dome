@@ -1,0 +1,13 @@
+1，查看所有镜像容器进程,-a 参数代表所有(停止和正在进行镜像容器进程)
+docker ps -a
+2，按照镜像容器编号停止某个镜像容器，zxc123就是镜像容器编号
+#docker stop zxc123
+3，更新随docker启动而启动的镜像容器为no
+#docker update --restart=no zxc123
+4，删除镜像容器
+docker rm zxc123
+5，查询所有镜像文件,-a 参数代表所有
+#docker images -a
+6，按照镜像编号删除镜像文件，qazwsx就是镜像编号
+#docker rmi qazwsx
+
