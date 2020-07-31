@@ -1,0 +1,4 @@
+1、查看本地镜像
+#docker images
+2、查看日志，zxc123 是容器ID
+#docker logs zxc123
