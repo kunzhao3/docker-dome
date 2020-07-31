@@ -1,4 +1,13 @@
-停止所有镜像容器
-docker stop $(docker ps -a -q)
-更新随docker启动而启动的镜像容器为no
+1，查看所有镜像容器进程,-a 参数代表所有(停止和正在进行镜像容器进程)
+docker ps -a
+2，停止所有镜像容器,-q 参数代表查询镜像容器的唯一标识ID
+#docker stop $(docker ps -a -q)
+3，更新随docker启动而启动的镜像容器为no
 #docker update --restart=no $(docker pa -a -q)
+4，删除镜像容器
+docker rm $(docker ps -a -q)
+5，查询所有镜像文件,-a 参数代表所有
+#docker images -a
+6，删除所有镜像文件,-q 参数代表查询镜像文件的唯一标识ID
+#docker rmi $(docker images -a -q)
+
