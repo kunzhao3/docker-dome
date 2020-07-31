@@ -1,0 +1,18 @@
+1、查看本地镜像
+使用以下命令来查看是否已安装了 mysql：
+#docker images
+2、进入镜像容器控制台
+#docker exec -it mysql bash
+3、登录
+#mysql -uroot -p
+输入密码
+4、查询所有的数据库
+#show database;
+5、切换数据库
+#use mysql;
+6、查询所有表
+#show tables;
+7、查询数据
+select user, host, plugin, authentication_string from user where user='root';
+8、退出
+exit;
