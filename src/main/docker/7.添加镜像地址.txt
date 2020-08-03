@@ -1,0 +1,10 @@
+1、vi /etc/docker/daemon.json
+{
+"registry-mirrors":["http://hub-mirror.c.163.com"]
+}
+2、docker国内镜像主要有：
+docker中国区官方镜像 https://registry.docker-cn.com
+网易蜂巢 http://hub-mirror.c.163.com
+阿里镜像 https://xxxx.mirror.aliyuncs.com // //需要注册
+3、重启docker服务
+Systemctl restart docker.service
