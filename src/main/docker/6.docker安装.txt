@@ -3,15 +3,37 @@ linux 安装docker
 1、安装环境
 此处在Centos7进行安装，可以使用以下命令查看CentOS版本
 uname -r
-2、用yum源安装
-2.1 查看是否已安装docker列表
+
+2、升级内核
+2.1安装ELRepo到CentOS
+最好从官方网站获取最新版本（官网地址：http://elrepo.org/tiki/tiki-index.php），下面两个命令直接从官网上复制最新版的即可
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+yum install https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+2.2安装需要的kernel版本，这里安装 kernel-lt
+yum --enablerepo=elrepo-kernel install kernel-lt
+内核版本介绍：
+lt:longterm的缩写：长期维护版
+ml:mainline的缩写：最新稳定版
+2.3检查kernel启动顺序
+cat /boot/grub2/grub.cfg
+2.4查看到刚才安装的kernel版本处在第一个位置，修改/etc/default/grub文件是系统在运行时自动执行最新的kernel
+vi /etc/default/grub
+修改
+GRUB_DEFAULT=0
+2.5重新创建kernel配置
+grub2-mkconfig -o /boot/grub2/grub.cfg
+2.6重新启动服务器使用最新kernel
+reboot
+
+3、用yum源安装
+3.1 查看是否已安装docker列表
 yum list installed | grep docker
-2.2 安装docker
+3.2 安装docker
 yum -y install docker
 -y表示不询问安装，直到安装成功，安装完后再次查看安装列表
-2.3 启动docker
+3.3 启动docker
 systemctl start docker
-2.4 查看docker服务状态
+3.4 查看docker服务状态
 systemctl status docker
-2.5设置随机启动，这个步骤最好也设置下，需注意卸载docker的时候需要重新设置为disable
+3.5设置随机启动，这个步骤最好也设置下，需注意卸载docker的时候需要重新设置为disable
 systemctl enable docker.service
