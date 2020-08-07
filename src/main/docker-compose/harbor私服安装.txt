@@ -101,7 +101,15 @@ Creating nginx              ... done
 Now you should be able to visit the admin portal at https://hub.gome.com.
 For more details, please visit https://github.com/vmware/harbor .
 
+6，访问
+https://hub.gome.com的管理员门户（将hub.gome.com更改为您的主机名harbor.cfg）。
+请注意，默认管理员用户名/密码为admin/Harbor12345
 
+7，指定镜像仓库地址
+vim/etc/docker/daemon.json
+{
+"insecure-registries": ["https://hub.gome.com"]
+}
 
 
 
