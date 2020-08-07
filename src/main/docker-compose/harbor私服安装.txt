@@ -111,5 +111,9 @@ vim/etc/docker/daemon.json
 "insecure-registries": ["https://hub.gome.com"]
 }
 
+8，绑定hosts
+#echo "192.168.179.131 hub.gome.com" >> /etc/hosts
+
+
 
 
