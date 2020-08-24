@@ -1,0 +1,2 @@
+#vi /etc/ssh/sshd_config
+修改Port为60022
