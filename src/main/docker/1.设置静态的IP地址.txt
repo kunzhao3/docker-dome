@@ -17,9 +17,10 @@ ONBOOT=no
 打开以后可以看到默认的配置就是dhcp，然后onboot=no，表示不会随着系统的启动而启动。我们需要修改这个配置
 BOOTPORRTO=static  #IP设置为静态
 ONBOOT=yes
-IPADDR=192.168.0.116 #IP地址
+IPADDR=192.168.179.132 #IP地址
 NETMASK=255.255.255.0 #掩码值
 GATEWAY=192.168.0.1   #默认网关
 DNS1=8.8.8.8  #采用谷歌的默认DNS服务器
 
-重启电脑
+重启电服务器
+reboot

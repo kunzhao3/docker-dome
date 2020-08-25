@@ -1,0 +1,17 @@
+linux 安装docker
+参考：https://www.cnblogs.com/kingsonfu/p/11576797.html
+1、安装环境
+此处在Centos7进行安装，可以使用以下命令查看CentOS版本
+uname -r
+2、用yum源安装
+2.1 查看是否已安装docker列表
+yum list installed | grep docker
+2.2 安装docker
+yum -y install docker
+-y表示不询问安装，直到安装成功，安装完后再次查看安装列表
+2.2 启动docker
+systemctl start docker
+2.4 查看docker服务状态
+systemctl status docker
+2.5设置随机启动，这个步骤最好也设置下，需注意卸载docker的时候需要重新设置为disable
+systemctl enable docker.service
