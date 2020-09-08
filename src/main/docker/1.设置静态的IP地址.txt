@@ -19,7 +19,7 @@ BOOTPORRTO=static  #IP设置为静态
 ONBOOT=yes
 IPADDR=192.168.179.132 #IP地址
 NETMASK=255.255.255.0 #掩码值
-GATEWAY=192.168.0.1   #默认网关
+GATEWAY=192.168.179.1   #默认网关
 DNS1=8.8.8.8  #采用谷歌的默认DNS服务器
 
 重启电服务器
